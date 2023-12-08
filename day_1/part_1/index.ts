@@ -1,6 +1,6 @@
 import fs from 'fs'
 
-const FILE_PATH = './day_1/calibration_values.txt'
+const FILE_PATH = './day_1/part_1/calibration_values.txt'
 
 /* Read values from files */
 fs.readFile(FILE_PATH, 'utf8', (err, data) => {
