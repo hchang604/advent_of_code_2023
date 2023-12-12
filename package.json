@@ -6,7 +6,8 @@
   "scripts": {
     "day_1_part_1": "ts-node ./day_1/part_1/index.ts",
     "day_1_part_2": "ts-node ./day_1/part_2/index.ts",
-    "day_2_part_1": "ts-node ./day_2/part_1/index.ts"
+    "day_2_part_1": "ts-node ./day_2/part_1/index.ts",
+    "day_2_part_2": "ts-node ./day_2/part_2/index.ts"
   },
   "author": "Henry Chang",
   "license": "ISC",

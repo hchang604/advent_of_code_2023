@@ -1,10 +1,6 @@
 import fs from 'fs'
 
-const FILE_PATH = './day_2/part_1/puzzel_input.txt'
-
-const RED_TOTAL = 12
-const GREEN_TOTAL = 13
-const BLUE_TOTAL = 14
+const FILE_PATH = './day_2/part_2/puzzel_input.txt'
 
 try {
   /* Read values from files */
@@ -14,12 +10,12 @@ try {
       return
     }
 
+    let poweredCubeSum = 0
+
     /*
      * Split values into array by \r\n
      */
     const array = data.split('\r\n')
-
-    let validGamesSum = 0
 
     for (let i = 0; i < array.length; i++) {
       const game = array[i]
@@ -27,40 +23,39 @@ try {
       /* Separate "Game X:" string from cube color count data */
       const gameArr = game.split(': ')
 
-      const gameId = parseInt(gameArr[0].replace('Game ', ''))
-
       /* Separate each hand into individual array elements */
       const gameHands = gameArr[1].split('; ')
 
-      let isValidGame = true
+      const highestCubeCount = {
+        red: 0,
+        green: 0,
+        blue: 0,
+      }
 
       for (let x = 0; x < gameHands.length; x++) {
         const gameHand = gameHands[x]
-
         const countedGameHand = countHand(gameHand)
 
-        if (countedGameHand.red > RED_TOTAL) {
-          isValidGame = false
-          break
+        if (countedGameHand.red > highestCubeCount.red) {
+          highestCubeCount.red = countedGameHand.red
         }
 
-        if (countedGameHand.green > GREEN_TOTAL) {
-          isValidGame = false
-          break
+        if (countedGameHand.green > highestCubeCount.green) {
+          highestCubeCount.green = countedGameHand.green
         }
 
-        if (countedGameHand.blue > BLUE_TOTAL) {
-          isValidGame = false
-          break
+        if (countedGameHand.blue > highestCubeCount.blue) {
+          highestCubeCount.blue = countedGameHand.blue
         }
       }
 
-      if (isValidGame) {
-        validGamesSum = validGamesSum + gameId
-      }
+      const poweredCubeCount =
+        highestCubeCount.red * highestCubeCount.green * highestCubeCount.blue
+
+      poweredCubeSum = poweredCubeSum + poweredCubeCount
     }
 
-    console.log(validGamesSum)
+    console.log(poweredCubeSum)
   })
 } catch (err) {
   console.log(
