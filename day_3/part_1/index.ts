@@ -30,15 +30,13 @@ try {
           continue
         }
 
+        /* Get neighbours of current index */
         const rightNeighbour = array[i][x + 1]
         const leftNeightbour = array[i][x - 1]
-
         const topNeighbour = array[i - 1] ? array[i - 1][x] : undefined
         const bottomNeighbour = array[i + 1] ? array[i + 1][x] : undefined
-
         const topRightNeighbour = array[i - 1] ? array[i - 1][x + 1] : undefined
         const topLeftNeighbour = array[i - 1] ? array[i - 1][x - 1] : undefined
-
         const bottomRightNeighbour = array[i + 1]
           ? array[i + 1][x + 1]
           : undefined
@@ -59,6 +57,7 @@ try {
           (bottomLeftNeighbour &&
             !NUMBERS_PERIOD_REGEX.test(bottomLeftNeighbour))
 
+        /* If neighbour is a part number, store it's index position */
         if (isPartNumber) {
           if (
             partNumberIndexes[i] &&
@@ -70,7 +69,7 @@ try {
           }
 
           /*
-           * Keep adding numbers to the left of the part number to also be part numbers
+           * Continue adding index positions of numbers to the left of the part number consecutively,
            * until a non-numerical character is hit
            */
           let currentPositionGoingLeft = x - 1
@@ -88,7 +87,7 @@ try {
           }
 
           /*
-           * Keep adding numbers to the right of the part number to also be part numbers
+           *  Continue adding index positions of numbers to the right of the part number consecutively,
            * until a non-numerical character is hit
            */
           let currentPositionGoingRight = x + 1
@@ -105,12 +104,13 @@ try {
             currentPositionGoingRight = currentPositionGoingRight + 1
           }
 
+          /* sort part numbers numerically  */
           partNumberIndexes[i] = partNumberIndexes[i].sort((a, b) => a - b)
         }
       }
     }
 
-    /* Map partNumberIndexes to part numbers */
+    /* Map partNumberIndexes to their values */
     const partNumberIndexKeys = Object.keys(partNumberIndexes)
     const partNumbers: number[] = []
 
